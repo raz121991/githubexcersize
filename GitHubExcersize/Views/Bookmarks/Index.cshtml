@@ -1,0 +1,41 @@
+﻿@model IEnumerable<GitHubExcersize.ViewModels.RepositoryDTO>
+
+<h2>Bookmarked Repositories</h2>
+<style>
+    .repo {
+       
+    }
+    .image{
+        height: 234px; width: 218px; 
+        float: left;
+        margin-top:10px;
+
+        margin-right: 19px;
+    }
+    p {
+        text-align: center;
+        font-family: sans-serif;
+        font-weight: bold;
+        position: relative;
+        top: 5px
+    }
+</style>
+@if (!Model.Any())
+{
+    <p>There are no  repositories bookmarked</p>
+}
+else
+{
+        <div class="row">
+            @foreach (var repository in @Model)
+            {
+
+                <div class="col-md-3 Search repo">
+                    <p>@repository.Name</p>
+                    <img  class="image" src="@repository.AvatarURL" height="100" width="100" />
+                    <br/>
+                </div>
+
+            }
+        </div>
+}

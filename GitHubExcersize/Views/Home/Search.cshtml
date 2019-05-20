@@ -1,0 +1,47 @@
+﻿@model  SelectList
+<style>
+    #search {
+        position: relative;
+        left: 2%;
+    }
+    .results {
+        position: relative;
+        left: 1%;
+    }
+</style>
+<h2>Search github Repositories</h2>
+
+<div class="container">
+    <form action="/Home/SearchRepo" method="GET">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                <input type="text" id="keyword" placeholder="repository name" class="form-control" name="searchVal" />
+                @Html.DropDownList("resultId", Model, "Choose number of results",new {@class="form-control results"})
+                <button type="button" class="btn btn-primary" id="search">Search</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div id="searchResults">
+
+</div>
+
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    
+    var url = '@Url.Action("SearchRepo", "Home")';
+    $('#search').click(function () {
+        var val = $("#resultId option:selected").text();
+        if (!$.isNumeric(val)) {
+            alert("You must choose number of results!");
+            return;
+        }
+        var keyWord = $('#keyword').val();
+        $('#searchResults').load(url, { searchVal: keyWord, resultNum: val });
+    });
+</script>

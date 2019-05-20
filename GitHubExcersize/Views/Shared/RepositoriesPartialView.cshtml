@@ -1,0 +1,54 @@
+﻿
+@model  IEnumerable<GitHubExcersize.ViewModels.RepositoryDTO>
+
+<style>
+    .repo {
+        margin-bottom: 5px;
+    }
+   
+</style>
+@if (!Model.Any())
+{
+    <p>There are no matching repositories!</p>
+}
+else
+{
+    <div id="test">
+        <div class="row repo">
+            @foreach (var repository in @Model)
+            {
+
+                <div class="col-md-3 Search">
+                    <p>@repository.Name</p>
+                    <img src="@repository.AvatarURL" height="100" width="100" />
+                    <br>
+                    <button id="bookmark" type="button" class="btn btn-success" onclick="bookmarkRepository('@repository.Name','@repository.AvatarURL')">Bookmark Repository</button>
+                </div>
+
+            }
+        </div>
+    </div>
+}
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    function bookmarkRepository(name, avatarUrl)
+    {
+        
+        var url = '@Url.Action("BookmarkRepository", "Home")';
+        $.ajax({
+            url: url,
+            data: { 'name': name, 'avatarUrl': avatarUrl },
+            type: "post",
+            cache: false,
+            success: function (res) {
+                alert("Repository has been bookmarked!");
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error occured while trying to bookmark repository');
+            }
+        });
+    }
+</script>
+
+
