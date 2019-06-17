@@ -10,7 +10,7 @@ namespace GitHubExcersize.GitHubAPI
     {
         public static List<Repository> GetRepositoriesForSearch(int resultsNum, string searchTerm)
         {
-            var github = new GitHubClient(new ProductHeaderValue("Matrix"));
+            var github = new GitHubClient(new ProductHeaderValue("Isracart"));
             int resultsToPages = resultsNum < 100 ? 1 : resultsNum / 100;
             List<Repository> result = new List<Repository>();
             for (int page = 1; page <= resultsToPages; page++)
